@@ -8,14 +8,21 @@
     pkgs.unzip
   ];
   # Sets environment variables in the workspace
-  env = {};
+  env = {
+  };
+  # Enable rootless docker
+  services.docker.enable = true;
   # search for the extension on https://open-vsx.org/ and use "publisher.id"
   idx.extensions = [
     # "vscodevim.vim"
   ];
-    # set up moodle when workspace is created
+  # set up moodle when workspace is created
   idx.workspace.onCreate = {
     set-up-project = "chmod +x .idx/setup.sh && .idx/setup.sh && echo https://9000-$WEB_HOST";
+  };
+
+  idx.workspace.onStart = {
+    start-mariadb = "docker start idx-db-1";
   };
   # preview configuration, identical to monospace.json
   idx.previews = {
