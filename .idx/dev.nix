@@ -30,7 +30,8 @@
     enable = true;
     previews = [
       {
-        command = ["/usr/bin/php" "-S" "0.0.0.0:$PORT"];
+        # command = ["/usr/bin/php" "-S" "0.0.0.0:$PORT"];
+        command = ["/bin/bash" "-c" "if ! /usr/bin/docker ps | grep -q idx-db-1; then /usr/bin/docker start idx-db-1; fi; /usr/bin/php -S 0.0.0.0:$PORT"];
         cwd = "www";
         manager = "web";
         id = "web";
