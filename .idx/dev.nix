@@ -6,6 +6,7 @@
   packages = [
     pkgs.php
     pkgs.unzip
+    pkgs.docker-compose
   ];
   # Sets environment variables in the workspace
   env = {
