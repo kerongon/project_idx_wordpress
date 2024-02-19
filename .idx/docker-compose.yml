@@ -3,7 +3,17 @@ services:
   db:
     image: mariadb
     container_name: idx-db-1
+    command: ["mariadbd", "--pid-file=/tmp/mysqld.pid"]
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
+  # web:
+  #   image: idx-wordpress-php-apache:latest
+  #   container_name: idx-web-1
+  #   ports:
+  #     - 9002:80
+  #   volumes:
+  #     - /home/user/project_idx_wordpress/www:/var/www/html
+  #   depends_on:
+  #     - db
