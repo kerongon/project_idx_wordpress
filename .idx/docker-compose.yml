@@ -6,14 +6,41 @@ services:
     command: ["mariadbd", "--pid-file=/tmp/mysqld.pid"]
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
     ports:
       - "3306:3306"
-  # web:
-  #   image: idx-wordpress-php-apache:latest
-  #   container_name: idx-web-1
-  #   ports:
-  #     - 9002:80
-  #   volumes:
-  #     - /home/user/project_idx_wordpress/www:/var/www/html
-  #   depends_on:
-  #     - db
+  wordpress:
+    image: wordpress:latest
+    container_name: idx-wordpress-1
+    ports:
+      - "8085:80"
+    environment:
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_HOST: idx-db-1
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: root
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_HOME', 'https://8085-${WEB_HOST}');
+        define('WP_SITEURL', 'https://8085-${WEB_HOST}');
+    volumes:
+      - wp-content:/var/www/html
+    depends_on:
+      - db
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8020:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+volumes:
+  db_data: {}
+  wp-content:
+
+  # define('WP_HOME', 'http://${WEB_HOST}');
+  #       define('WP_SITEURL', 'http://${WEB_HOST}');
+          # define('WP_HOME', 'https://8083-monospace-project-idx-wordpress-1708374172665.cluster-nxnw2gov3naqkvuxb437f67u5e.cloudworkstations.dev');
+        # define('WP_SITEURL', 'https://8083-monospace-project-idx-wordpress-1708374172665.cluster-nxnw2gov3naqkvuxb437f67u5e.cloudworkstations.dev')

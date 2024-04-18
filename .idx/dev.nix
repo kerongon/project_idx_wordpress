@@ -8,6 +8,7 @@
     pkgs.unzip
     pkgs.docker-compose
     pkgs.mariadb
+    pkgs.sudo
   ];
   # Sets environment variables in the workspace
   env = {
@@ -36,16 +37,16 @@
       #   manager = "web";
       #   id = "web";
       # }
-      {
-        # command = ["/usr/bin/docker" "run" "-p" "$PORT:80" "-v" "/home/user/project_idx_wordpress/www:/var/www/html" "--network" "idx_default" "idx-wordpress-php-apache:latest"];
-        "command" =  [
-        "/bin/bash" "-c"
-        "if ! /usr/bin/docker ps | grep -q mariadb; then /usr/bin/docker start idx-db-1; fi; /usr/bin/docker run -p 9002:80 -v /home/user/project_idx_wordpress/www:/var/www/html --network idx_default idx-wordpress-php-apache:latest"
-        ];
-        cwd = ".";
-        manager = "web";
-        id = "web";
-      }
+      # {
+      #   # command = ["/usr/bin/docker" "run" "-p" "$PORT:80" "-v" "/home/user/project_idx_wordpress/www:/var/www/html" "--network" "idx_default" "idx-wordpress-php-apache:latest"];
+      #   "command" =  [
+      #   "/bin/bash" "-c"
+      #   "if ! /usr/bin/docker ps | grep -q mariadb; then /usr/bin/docker start idx-db-1; fi; /usr/bin/docker run -p 9002:80 -v /home/user/project_idx_wordpress/www:/var/www/html --network idx_default idx-wordpress-php-apache:latest"
+      #   ];
+      #   cwd = ".";
+      #   manager = "web";
+      #   id = "web";
+      # }
     ];
   };
 }

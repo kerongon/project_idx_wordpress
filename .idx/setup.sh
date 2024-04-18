@@ -100,7 +100,7 @@ main() {
     # Create database in Docker container
     echo "Creating database in Docker container..."
     docker exec -it idx-db-1 mariadb -u root -proot -e "CREATE DATABASE wordpress;"
-
+    
     #Display DB information
     echo "Database Information:"
     echo "DB_USER: root"
