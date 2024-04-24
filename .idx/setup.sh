@@ -113,10 +113,6 @@ main() {
     local duration=$((end_time - start_time))
 
     echo "Script completed in $duration seconds."
-
-    # Remove this script
-    # echo "Removing this script..."
-    # rm -- "$0"
 }
 
 # Check dependencies before running script

@@ -17,9 +17,9 @@
   idx.extensions = [
     # "vscodevim.vim"
   ];
-  # set up moodle when workspace is created
+  # Set up wordpress when workspace is created
   idx.workspace.onCreate = {
-    set-up-project = "chmod +x .idx/setup.sh && .idx/setup.sh && echo https://9000-$WEB_HOST";
+    set-up-project = "chmod +x .idx/setup.sh && .idx/setup.sh && echo https://9002-$WEB_HOST";
   };
 
   idx.workspace.onStart = {
@@ -30,7 +30,6 @@
     enable = true;
     previews = [
       {
-        # command = ["/usr/bin/php" "-S" "0.0.0.0:$PORT"];
         command = ["/bin/bash" "-c" "if ! /usr/bin/docker ps | grep -q idx-db-1; then /usr/bin/docker start idx-db-1; fi; /usr/bin/php -S 0.0.0.0:$PORT"];
         cwd = "www";
         manager = "web";
